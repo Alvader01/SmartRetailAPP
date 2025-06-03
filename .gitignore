@@ -1,0 +1,55 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+bin/
+obj/
+
+# Rider IDE
+.idea/
+
+# Logs
+*.log
+
+# SQLite database files (por si usas)
+*.sqlite
+*.db
+
+# Configuraciones locales
+appsettings.Development.json
+appsettings.Local.json
+
+# Paquetes NuGet
+*.nupkg
+*.snupkg
+
+# Archivos de paquetes
+*.vsix
+
+# Node (si usas algún frontend JS)
+node_modules/
+
+# Archivos generados por JetBrains Rider
+.idea/
+
+# Otros temporales
+*.tmp
+*.temp
+
+# Archivos de cobertura
+coverage/
+
+# Archivos de despliegue
+publish/
+
+# Archivos VSCode
+.vscode/
+
+# Archivos específicos de Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini

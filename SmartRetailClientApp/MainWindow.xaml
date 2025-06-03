@@ -1,0 +1,165 @@
+﻿<Window x:Class="SmartRetailClientApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Smart Retail Client" Height="700" Width="940" MinWidth="650" MinHeight="500"
+        Background="#FFF9FAFB" FontFamily="Segoe UI" FontSize="14"
+        WindowStartupLocation="CenterScreen">
+
+    <!--
+        Recursos globales para estilos comunes usados en ComboBox, Button, DataGrid y encabezados.
+        Estos estilos definen aspecto visual coherente y UX uniforme.
+    -->
+    <Window.Resources>
+        <!-- Estilo general para ComboBox -->
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#BDC3C7"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Estilo general para Button -->
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Margin" Value="5,4"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="10,0"/>
+        </Style>
+
+        <!-- Estilo para celdas del DataGrid -->
+        <Style TargetType="DataGridCell">
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="BorderThickness" Value="0,0,1,0"/>
+            <Setter Property="BorderBrush" Value="#D5D8DC"/>
+        </Style>
+
+        <!-- Estilo para encabezados de columnas del DataGrid -->
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#ECF0F1"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="#D5D8DC"/>
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+
+        <!-- Estilo general para DataGrid -->
+        <Style TargetType="DataGrid">
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="AutoGenerateColumns" Value="True"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="AlternatingRowBackground" Value="#F9FBFC"/>
+            <Setter Property="RowBackground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#D5D8DC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,8,0,0"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="CanUserResizeColumns" Value="True"/>
+            <Setter Property="CanUserReorderColumns" Value="True"/>
+            <Setter Property="ColumnWidth" Value="Auto"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+
+    <!--
+        Layout principal con Grid que contiene todos los elementos de UI organizados en filas.
+        Cada fila contiene un área funcional distinta, facilitando la mantenibilidad.
+    -->
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Título -->
+            <RowDefinition Height="Auto"/>
+            <!-- Intervalo sincronización -->
+            <RowDefinition Height="Auto"/>
+            <!-- Selección tablas -->
+            <RowDefinition Height="Auto"/>
+            <!-- Botones principales -->
+            <RowDefinition Height="*"/>
+            <!-- Datos obtenidos -->
+            <RowDefinition Height="Auto"/>
+            <!-- Estado -->
+        </Grid.RowDefinitions>
+
+        <!-- Título principal centrado -->
+        <TextBlock Text="Smart Retail Client" FontSize="24" FontWeight="SemiBold" 
+                   Grid.Row="0" Margin="0,0,0,20" Foreground="#2C3E50" HorizontalAlignment="Center"/>
+
+        <!-- Grupo para configurar intervalo de sincronización automática -->
+        <GroupBox Header="Intervalo automático" Grid.Row="1" Margin="0,0,0,15" FontWeight="Bold" Foreground="#34495E">
+            <StackPanel Margin="15,10">
+                <TextBlock Text="Cada cuántos minutos quieres sincronizar:" Margin="0,0,0,8" FontWeight="Normal"/>
+                <ComboBox x:Name="SyncIntervalComboBox" SelectedIndex="2" Width="120">
+                    <ComboBoxItem Content="1 minuto"/>
+                    <ComboBoxItem Content="5 minutos"/>
+                    <ComboBoxItem Content="10 minutos"/>
+                    <ComboBoxItem Content="30 minutos"/>
+                    <ComboBoxItem Content="60 minutos"/>
+                </ComboBox>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Grupo para seleccionar tablas a sincronizar o mostrar -->
+        <GroupBox Header="Tablas a sincronizar o mostrar" Grid.Row="2" Margin="0,0,0,15" FontWeight="Bold" Foreground="#34495E">
+            <StackPanel Margin="15,10">
+                <TextBlock Text="Deja vacío para sincronizar o mostrar toda la base" Margin="0,0,0,8" FontStyle="Italic" Foreground="#7F8C8D"/>
+                <ScrollViewer Height="160" VerticalScrollBarVisibility="Auto" 
+                              Background="White" BorderBrush="#D5D8DC" BorderThickness="1" Padding="5">
+                    <!-- Contenedor para checkboxes generados dinámicamente -->
+                    <StackPanel x:Name="TableCheckboxPanel" />
+                </ScrollViewer>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Botones principales para acciones: sincronizar, activar/desactivar y mostrar datos -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
+            <Button x:Name="ManualSyncButton" Content="Sincronizar ahora" MinWidth="180" Background="#3498DB" Click="ManualSync_Click"/>
+            <Button x:Name="ToggleSyncButton" Content="Activar/Desactivar sincronización automática" MinWidth="180" Margin="5,0" Background="#3498DB" Click="ToggleSync_Click"/>
+            <Button x:Name="GetDataButton" Content="Mostrar Datos" MinWidth="180" Background="#27AE60" Click="GetDataButton_Click"/>
+            <Button Content="Ver historial" MinWidth="180" Margin="5,0" Background="#7F8C8D" Click="ViewLog_Click"/>
+        </StackPanel>
+
+        <!-- Grupo para mostrar datos obtenidos con selección de tabla y DataGrid -->
+        <GroupBox Header="Datos obtenidos" Grid.Row="4" Margin="0,10,0,0" FontWeight="Bold" Foreground="#34495E">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Selector de tablas -->
+                    <RowDefinition Height="*"/>
+                    <!-- DataGrid para resultados -->
+                </Grid.RowDefinitions>
+
+                <!-- ComboBox para seleccionar tabla cuyos datos mostrar -->
+                <ComboBox x:Name="TablesComboBox"
+                          SelectionChanged="TablesComboBox_SelectionChanged"
+                          Margin="0,0,0,5"
+                          Grid.Row="0"/>
+
+                <!-- DataGrid para mostrar resultados de consulta -->
+                <DataGrid x:Name="DataGridResults"
+                          AutoGenerateColumns="True"
+                          AutoGeneratingColumn="DataGridResults_AutoGeneratingColumn"
+                          IsReadOnly="True"
+                          Grid.Row="1"
+                          VerticalScrollBarVisibility="Visible"
+                          HorizontalScrollBarVisibility="Visible"
+                          CanUserResizeColumns="True"
+                          CanUserReorderColumns="True"
+                          Margin="0"
+                          />
+            </Grid>
+        </GroupBox>
+
+        <!-- Texto para mostrar estado actual de la aplicación o sincronización -->
+        <TextBlock x:Name="StatusTextBlock" Grid.Row="5" Text="Estado: Sincronización desactivada" 
+                   FontStyle="Italic" Foreground="#95A5A6" TextWrapping="Wrap" Margin="0,15,0,0" HorizontalAlignment="Center"/>
+    </Grid>
+</Window>

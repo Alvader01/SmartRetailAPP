@@ -1,0 +1,39 @@
+﻿<Window x:Class="SmartRetailClientApp.ApiLoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Login API" Height="260" Width="320"
+        Background="#F9FAFB" FontFamily="Segoe UI" FontSize="14"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <!-- Label y TextBox para el usuario -->
+            <TextBlock Text="Usuario" Margin="0,0,0,6" FontWeight="Bold" Foreground="#34495E" />
+            <TextBox x:Name="UsernameBox" Margin="0,0,0,14" Padding="6" Background="White" BorderBrush="#BDC3C7" BorderThickness="1" />
+
+            <!-- Label y PasswordBox para la contraseña -->
+            <TextBlock Text="Contraseña" Margin="0,0,0,6" FontWeight="Bold" Foreground="#34495E" />
+            <PasswordBox x:Name="PasswordBox" Margin="0,0,0,20" Padding="6" Background="White" BorderBrush="#BDC3C7" BorderThickness="1" />
+
+            <!-- Botón para iniciar sesión -->
+            <Button Content="Iniciar sesión" Width="130" Height="36" HorizontalAlignment="Center"
+                    Background="#3498DB" Foreground="White" FontWeight="SemiBold"
+                    BorderThickness="0" Click="Login_Click" Cursor="Hand"/>
+
+            <!-- TextBlock para mostrar mensajes de error, inicialmente oculto -->
+            <TextBlock x:Name="ErrorTextBlock"
+                       Foreground="#E74C3C"
+                       FontWeight="SemiBold"
+                       TextWrapping="Wrap"
+                       Margin="0,12,0,0"
+                       HorizontalAlignment="Center"
+                       Visibility="Collapsed"/>
+        </StackPanel>
+    </Grid>
+</Window>
