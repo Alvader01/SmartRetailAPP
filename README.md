@@ -61,4 +61,4 @@ Este proyecto está bajo la licencia MIT. Consulta el archivo `LICENSE` para má
 
 ## Contacto
 
-Para dudas o sugerencias, puedes contactarme vía GitHub: [@Alvader01](https://github.com/Alvader01) o via Discord [alvader]
+Para dudas o sugerencias, puedes contactarme vía GitHub: [@Alvader01](https://github.com/Alvader01) o via Discord alvader
